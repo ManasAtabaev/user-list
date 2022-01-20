@@ -1,8 +1,7 @@
 # Getting Started
 
 -   Run `npm install`
--   Update `.env.development` file with you API url `REACT_APP_API_URL`
-
+-   Update `.env.development` file with you API url `REACT_APP_API_URL` if need
 
 ## Available Scripts
 
