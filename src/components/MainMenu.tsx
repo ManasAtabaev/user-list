@@ -1,12 +1,8 @@
-import React, { useState, createContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
-const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Chart', href: '/chart' },
-];
+const navigation = [{ name: 'Home', href: '/' }];
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');

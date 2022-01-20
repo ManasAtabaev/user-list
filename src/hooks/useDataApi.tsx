@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
-import LimitContext from './../components/MainMenu';
 
 import { FETCH_INIT, FETCH_SUCCESS, FETCH_FAILURE } from './types';
 
@@ -35,7 +34,7 @@ const instance = axios.create({
 });
 
 type paramsObj = {
-    query: string;
+    name: string;
 };
 
 const useDataApi = (initialParams: paramsObj, initialData: any) => {
@@ -54,10 +53,22 @@ const useDataApi = (initialParams: paramsObj, initialData: any) => {
             dispatch({ type: FETCH_INIT });
 
             try {
-                const result = await instance.get('search', { params });
+                let axiosParams = {};
+                if (params.name) {
+                    axiosParams = { params };
+                }
+                console.log(axiosParams);
+                const result = await instance.get('users', axiosParams);
 
                 if (!didCancel) {
-                    dispatch({ type: FETCH_SUCCESS, payload: result.data });
+                    let data = [];
+                    for (let user of result.data) {
+                        user[
+                            'avatar'
+                        ] = `https://avatars.dicebear.com/v2/avataaars/${user['name']}.svg`;
+                        data.push(user);
+                    }
+                    dispatch({ type: FETCH_SUCCESS, payload: data });
                 }
             } catch (error) {
                 if (!didCancel) {

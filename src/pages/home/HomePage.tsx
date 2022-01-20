@@ -1,24 +1,23 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import MainMenu from './../../components/MainMenu';
-import DataTable from './../../components/DataTable';
+import UserList from './../../components/UserList';
 import Loader from './../../components/Loader';
 import useDataApi from './../../hooks/useDataApi';
 
 export default function HomePage() {
-    const [query, setQuery] = useState('redux');
+    const [query, setQuery] = useState('');
     const [state, doFetch] = useDataApi(
         {
-            query: query,
+            name: query,
         },
-        {
-            hits: [],
-        }
+        []
     );
 
     function changeQuery(value: string) {
+        console.log('setFilte');
         setQuery(value);
-        if (value.length > 3) {
-            doFetch({ query: value });
+        if (value.length > 3 || value.length === 0) {
+            doFetch({ name: value });
         }
     }
 
@@ -32,7 +31,7 @@ export default function HomePage() {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <h1 className="text-3xl font-bold text-gray-900">
-                                    Dashboard
+                                    Users
                                 </h1>
                             </div>
                             <div>
@@ -41,7 +40,7 @@ export default function HomePage() {
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-green-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                         id="grid-query"
                                         type="text"
-                                        placeholder="Search"
+                                        placeholder="Search By Full Name"
                                         value={query}
                                         onChange={(e) =>
                                             changeQuery(e.target.value)
@@ -59,7 +58,7 @@ export default function HomePage() {
                         {state.isLoading && <Loader />}
 
                         {!state.isError && !state.isLoading && (
-                            <DataTable data={state.data.hits} />
+                            <UserList data={state.data} />
                         )}
                     </div>
                 </main>
