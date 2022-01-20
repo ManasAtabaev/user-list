@@ -57,7 +57,6 @@ const useDataApi = (initialParams: paramsObj, initialData: any) => {
                 if (params.name) {
                     axiosParams = { params };
                 }
-                console.log(axiosParams);
                 const result = await instance.get('users', axiosParams);
 
                 if (!didCancel) {

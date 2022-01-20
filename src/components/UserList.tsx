@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 
 import {
     MailIcon,
@@ -76,10 +76,6 @@ export default function UserList(props: UserListProps) {
         }
         return <HeartIcon className="h-5 w-5 text-red-500 inline-block" />;
     };
-
-    useEffect(() => {
-        console.log(favorites);
-    }, [favorites]);
 
     return (
         <Fragment>
